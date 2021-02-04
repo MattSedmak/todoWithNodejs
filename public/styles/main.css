@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+.container h1 {
+  margin-bottom: 40px;
+}
+.alert {
+  padding: 5px;
+}
+.todo {
+  width: 90%;
+}
+.todo a {
+  text-decoration: none;
+}
+.alert {
+  margin-top: 20px;
+}
+.list-group {
+  margin-top: 20px;
+}
+.list-group-item {
+  border: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.list-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.completed {
+  text-decoration: line-through;
+  margin: 0;
+  font-size: 1em;
+}
+.list-group-item p {
+  margin: 0;
+  font-size: 1em;
+}
+.list-group-item span {
+  /* margin: 0 20px; */
+  font-size: 0.5em;
+  color: gray;
+}
+
+.list-group-item .addRemoveBtn {
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+.btn {
+  margin-left: 5px;
+}
+.btn .far {
+  font-size: 12px;
+}
+.dropdown {
+  margin-right: 20px;
+}
+
+.dropdown .fas {
+  font-size: 12px;
+}
+
+@media screen and (min-width: 800px) {
+  .todo {
+    width: 60%;
+  }
+  .list-group-item p {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  .list-group-item span {
+    font-size: 0.8em;
+  }
+  .btn .far {
+    font-size: 18px;
+  }
+}
