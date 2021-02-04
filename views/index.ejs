@@ -1,0 +1,80 @@
+<%- include("header.ejs")%>
+
+  <body>
+    <div class="container">
+      <h1>A todo list</h1>
+      <div class="todo">
+        <%- include("addTodo.ejs") %>
+          <%- include("sort.ejs")%>
+
+            <%- include("error.ejs")%>
+
+              <ul class="list-group">
+                <% Tasks.forEach(todoTask=> { %>
+                  <% if (todoTask.isDone==true) {%>
+                    <li class="list-group-item">
+                      <div class="dropdown">
+                        <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button"
+                          id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fas fa-check"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                          <li><a class="dropdown-item"
+                              href="/notDone/<%= todoTask._id%>/?page=<%=(dataToShow /limitPerPage)%>&sort=<%=sort%>">Not
+                              Completed</a></li>
+                        </ul>
+                      </div>
+                      <div class=" list-item-container">
+                        <p class="todo-list-item-text completed">
+                          <%= todoTask.todoName %>
+                        </p>
+                        <span><small> Added:
+                            <%= todoTask.date.toDateString();%>
+                          </small>
+                        </span>
+                      </div>
+                      <div class="addRemoveBtn">
+                        <a href="/edit/<%= todoTask._id%>" class="btn btn-outline-light btn-sm disabled"><i
+                            class="far fa-edit"></i></a>
+                        <a href="/delete/<%= todoTask._id %>" class="btn btn-outline-dark btn-sm"><i
+                            class="far fa-trash-alt"></i></a>
+                      </div>
+                    </li>
+                    <%} else {%>
+                      <li class="list-group-item">
+                        <div class="dropdown">
+                          <button class="btn btn-outline-danger btn-sm dropdown-toggle" type="button"
+                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-exclamation-circle"></i>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item"
+                                href="/done/<%= todoTask._id%>/?page=<%=(dataToShow /limitPerPage)%>&sort=<%=sort%>">Completed</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class=" list-item-container">
+                          <p class="todo-list-item-text">
+                            <%= todoTask.todoName %>
+                          </p>
+                          <span><small> Added:
+                              <%= todoTask.date.toDateString();%>
+                            </small>
+                          </span>
+                        </div>
+                        <div class="addRemoveBtn">
+                          <a href="/edit/<%= todoTask._id%>/?page=<%=(dataToShow /limitPerPage)%>&sort=<%=sort%>" class="
+                          btn btn-outline-dark btn-sm"><i class="far fa-edit"></i></a>
+                          <a href="/delete/<%= todoTask._id %>" class="btn btn-outline-dark btn-sm "><i
+                              class="far fa-trash-alt"></i></a>
+                        </div>
+                      </li>
+                      <%}%>
+                        <% }) %>
+              </ul>
+              <%- include("pagination.ejs")%>
+      </div>
+    </div>
+  </body>
+
+  </html>
