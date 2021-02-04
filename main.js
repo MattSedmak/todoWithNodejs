@@ -8,6 +8,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", router);
 
+app.set("view engine", "ejs");
+
 const port = process.env.port || 3001;
 //Database connection
 mongoose.connect(
