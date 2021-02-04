@@ -1,0 +1,13 @@
+<% if(totalPages> 1){%>
+  <ul class="pagination">
+    <%if(page>1){%>
+      <li class="page-item"><a href="/?page=<%=(dataToShow/limitPerPage)-1 %>&&sort=<%=sort%>" class="page-link">&larr;
+          less </a>
+      </li>
+      <%}%>
+        <% if(totalPages !==dataToShow/limitPerPage){%>
+          <li class="page-item"><a href="/?page=<%=(dataToShow/limitPerPage)+1 %>&sort=<%=sort%>" class="page-link">more
+              &rarr;</a></li>
+          <% } %>
+            <%} %>
+  </ul>
