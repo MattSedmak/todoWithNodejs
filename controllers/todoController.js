@@ -120,7 +120,7 @@ exports.todo_update_post = async (req, res) => {
   }
 };
 
-// Todo is completed ornot completed
+// Todo is completed or not completed
 exports.todo_done = async (req, res) => {
   try {
     await Task.updateOne({ _id: req.params.id }, { $set: { isDone: true } });
@@ -146,7 +146,7 @@ exports.todo_delete = async (req, res) => {
     await Task.deleteOne({ _id: id });
     res.redirect("/");
   } catch (err) {
-    if (err) return res.status(500).send(err);
+    if (err) return res.send(err.message);
     res.redirect("/");
   }
 };
