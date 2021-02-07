@@ -11,7 +11,7 @@ app.use("/", router);
 
 app.set("view engine", "ejs");
 
-const port = process.env.port || 3001;
+const port = process.env.PORT || 3001;
 //Database connection
 mongoose.connect(
   process.env.DB_CONNECT,
