@@ -4,7 +4,7 @@ This is the first assignment for the course 'Dynamic Web Development' which I am
 
 
 ## Installation
-- clone repo.
+- git clone.
 - npm install. 
 - Create a .env file, add PORT and your connection string to mongodb using "DB_CONNECT" as variable.
 - npm start. (If Nodemon is installed).
