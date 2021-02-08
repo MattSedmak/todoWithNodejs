@@ -3,10 +3,9 @@ const Task = require("../models/task");
 // Display all todos on start
 exports.todo_list_all = async (req, res) => {
   const id = req.params.id;
+  const page = +req.query.page || 1;
+  const sort = +req.query.sort || 1;
   try {
-    const page = +req.query.page || 1;
-    const sort = +req.query.sort || 1;
-
     const totalTasks = await Task.countDocuments();
     const limitPerPage = 2;
     const totalPages = Math.ceil(totalTasks / limitPerPage);
@@ -23,12 +22,14 @@ exports.todo_list_all = async (req, res) => {
       message: "",
     });
   } catch (err) {
-    console.log(err.message);
+    if (err) return res.send(err.message);
   }
 };
 
 //create a new todo task.
 exports.todo_create_post = async (req, res) => {
+  const page = +req.query.page || 1;
+  const sort = +req.query.sort || 1;
   try {
     const task = new Task({
       todoName: req.body.todoName.trim(""),
@@ -36,9 +37,6 @@ exports.todo_create_post = async (req, res) => {
     await task.save();
     res.redirect("back");
   } catch (err) {
-    const page = +req.query.page || 1;
-    const sort = +req.query.sort || 1;
-
     const totalTasks = await Task.countDocuments();
     const limitPerPage = 2;
     const totalPages = Math.ceil(totalTasks / limitPerPage);
@@ -61,10 +59,9 @@ exports.todo_create_post = async (req, res) => {
 //Display todos on edit
 exports.todo_list_edit = async (req, res) => {
   const id = req.params.id;
+  const page = +req.query.page || 1;
+  const sort = +req.query.sort || 1;
   try {
-    const page = +req.query.page || 1;
-    const sort = +req.query.sort || 1;
-
     const totalTasks = await Task.countDocuments();
     const limitPerPage = 2;
     const totalPages = Math.ceil(totalTasks / limitPerPage);
@@ -82,24 +79,23 @@ exports.todo_list_edit = async (req, res) => {
       message: "",
     });
   } catch (err) {
-    console.log(err.message);
+    if (err) return res.send(err.message);
   }
 };
 
 // Update a todo task
 exports.todo_update_post = async (req, res) => {
+  const id = req.params.id;
+  const page = +req.query.page || 1;
+  const sort = +req.query.sort || 1;
   try {
     await Task.updateOne(
       { _id: req.params.id },
       { todoName: req.body.todoName.trim("") },
       { runValidators: true }
     );
-    res.redirect("/");
+    res.redirect(`/?page=${page}&sort=${sort}`);
   } catch (err) {
-    const id = req.params.id;
-    const page = +req.query.page || 1;
-    const sort = +req.query.sort || 1;
-
     const totalTasks = await Task.countDocuments();
     const limitPerPage = 2;
     const totalPages = Math.ceil(totalTasks / limitPerPage);
@@ -120,13 +116,13 @@ exports.todo_update_post = async (req, res) => {
   }
 };
 
-// Todo is completed ornot completed
+// Todo is completed or not completed
 exports.todo_done = async (req, res) => {
   try {
     await Task.updateOne({ _id: req.params.id }, { $set: { isDone: true } });
     res.redirect("back");
   } catch (err) {
-    console.log(err.message);
+    if (err) return res.send(err.message);
   }
 };
 exports.todo_not_done = async (req, res) => {
@@ -134,19 +130,18 @@ exports.todo_not_done = async (req, res) => {
     await Task.updateOne({ _id: req.params.id }, { $set: { isDone: false } });
     res.redirect("back");
   } catch (err) {
-    console.log(err.message);
+    if (err) return res.send(err.message);
   }
 };
 
 // Delete a todo task
 exports.todo_delete = async (req, res) => {
   const id = req.params.id;
-
   try {
     await Task.deleteOne({ _id: id });
     res.redirect("/");
   } catch (err) {
-    if (err) return res.status(500).send(err);
+    if (err) return res.send(err.message);
     res.redirect("/");
   }
 };
